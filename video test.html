@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Showreel Scroll Effect</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; color: black; overflow-x: hidden; }
+        .page { height: 100vh; width: 100vw; display: flex; align-items: center; justify-content: center; position: relative; }
+        .page1, .page4 { background: black; }
+        .page2, .page3 { background: white; position: relative; }
+        .video-container {
+            position: fixed;
+            top: 20px; left: 20px;
+            width: calc(100vw - 40px); height: calc(100vh - 40px);
+            transition: transform 0.5s ease-in-out, width 0.5s ease-in-out, height 0.5s ease-in-out, left 0.5s ease-in-out, top 0.5s ease-in-out;
+            border-radius: 20px;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 100;
+            display: block;
+        }
+        video { width: 100%; height: 100%; object-fit: cover; border-radius: 20px; }
+        .content {
+            position: absolute;
+            left: 5%; top: 20%;
+            font-size: 100px;
+            font-weight: bold;
+            color: black;
+            max-width: 40%;
+            line-height: 1.3;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .content span {
+            opacity: 0.3;
+            display: inline-block;
+            transition: opacity 0.8s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="page page1"></div>
+    <div class="page page2">
+        <div class="video-container" id="videoContainer">
+            <video src="showreel-cover.mp4" autoplay muted loop></video>
+        </div>
+    </div>
+    <div class="page page3">
+        <div class="content" id="textContent">
+            <span>Popin</span> <span>designs</span> <span>of</span> <span>the</span> <span>solutions</span><br>
+            <span>And</span> <span>experiences</span> <span>digital</span><br>
+            <span>Who</span> <span>combine</span> <span>creativity,</span> <span>technology</span><br>
+            <span>And</span> <span>commitment</span> <span>ethics.</span>
+        </div>
+    </div>
+    <div class="page page4"></div>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            let videoContainer = document.getElementById('videoContainer');
+            let textContent = document.getElementById('textContent');
+            let words = textContent.querySelectorAll('span');
+            let page2 = document.querySelector('.page2').offsetTop;
+            let page3 = document.querySelector('.page3').offsetTop;
+            let page4 = document.querySelector('.page4').offsetTop;
+            let scrollY = window.scrollY;
+            let viewportHeight = window.innerHeight;
+            
+            if (scrollY >= page2 && scrollY < page3) {
+                let progress = (scrollY - page2) / (page3 - page2);
+                let scale = Math.max(0.25, 1 - progress * 0.75);
+                let newWidth = `calc(${scale} * (100vw - 40px))`;
+                let newHeight = `calc(${scale} * (100vh - 40px))`;
+                videoContainer.style.width = newWidth;
+                videoContainer.style.height = newHeight;
+                videoContainer.style.top = `${20 + progress * 50}px`;
+                videoContainer.style.left = `${20 + progress * 40}%`;
+                videoContainer.style.display = 'block';
+            }
+            
+            if (scrollY >= page3 - viewportHeight / 2) {
+                textContent.style.opacity = 1;
+                words.forEach((word, index) => {
+                    setTimeout(() => {
+                        word.style.opacity = 1;
+                    }, index * 150);
+                });
+            }
+            
+            if (scrollY < page2 || scrollY >= page4) {
+                videoContainer.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

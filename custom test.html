@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two Page Scroll with Auto-Inverting Cursor</title>
+    <style>
+        /* Remove default margins */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 200vh; /* 2-page effect */
+            cursor: none; /* Hide default cursor */
+        }
+
+        /* Section Styling */
+        .page {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            position: relative;
+            width: 100%;
+        }
+
+        .black-page {
+            background-color: black;
+            color: white;
+        }
+
+        .white-page {
+            background-color: white;
+            color: black;
+        }
+
+        /* Cursor Overlay Layer */
+        .cursor-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Allows interaction with underlying content */
+            z-index: 9999;
+            background: white; /* Trick to make mix-blend-mode detect colors correctly */
+            mix-blend-mode: difference;
+        }
+
+        /* Custom Cursor */
+        .custom-cursor {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            background: url('custom.png') no-repeat center;
+            background-size: contain;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <!-- Cursor Overlay -->
+    <div class="cursor-layer">
+        <div class="custom-cursor" id="cursor"></div>
+    </div>
+
+    <!-- Pages -->
+    <div class="page black-page">Black Page</div>
+    <div class="page white-page">White Page</div>
+
+    <script>
+        // Custom Cursor Movement
+        document.addEventListener("mousemove", function(e) {
+            const cursor = document.getElementById("cursor");
+            cursor.style.left = `${e.clientX}px`;
+            cursor.style.top = `${e.clientY}px`;
+        });
+    </script>
+</body>
+</html>

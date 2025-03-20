@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Logo & Hover Effects</title>
+    <style>
+        body {
+            
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        /* Page Styles */
+        .page {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            
+        }
+
+        /* Page 1 */
+        #page1 {
+            background: #000000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2; /* Ensures it's above other pages initially */
+            position:absolute;
+            .video-container {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            background: black;}
+        
+
+    
+        
+}
+#page2 {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #e5e5e5;
+        margin-top: 50px;
+        padding: 20px;
+        height: 100vh ;
+        
+        
+    }
+.showreel-video {
+    width: 80%;
+    border-radius: 20px !important;
+    overflow: hidden;
+
+    }
+
+        
+        
+
+        /* Page 3 */
+        #page3 {
+            background: #e5e5e5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            height: 100vh;
+        }
+        
+        
+        .hello-image {
+            position: absolute;
+            width: 1920px;
+            height: 1080px;
+            z-index: 1;
+            display: none;
+        }
+
+        .cursor-mask {
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 10%, rgba(255,255,255,0) 40%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            filter: blur(20px);
+            mix-blend-mode: screen;
+        }
+
+        /* Hover Image Styles */
+        .text-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1920px;
+            height: 1080px;
+        }
+
+        .hover-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1920px;
+            height: 1080px;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        .hover-image.blue {
+            background-image: url('blue.png');
+        }
+
+        .hover-image.green {
+            background-image: url('green.png');
+        }
+
+        .hover-image.red {
+            background-image: url('red.png');
+        }
+
+        /* Hover Areas */
+        .hover-area {
+            position: absolute;
+            cursor: pointer;
+        }
+
+        .blue-box { top: 500px; left: 1020px; width: 847px; height: 144px; }
+        .green-box { top: 605px; left: 41px; width: 964px; height: 116px; }
+        .red-box { top: 831px; left: 985px; width: 556px; height: 121px; }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 9999; /* Increased to make sure it's above everything */
+            transition: filter 0.5s ease-in-out;
+            mix-blend-mode: difference;
+            color: white;
+        }
+
+        .logo {
+            width: 75px;
+            height: auto;
+            transition: filter 0.5s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .contact-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .contact-box {
+            border: 1.5px solid white;
+            color: white;
+            width: 160px;
+            height: 40px;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 300;
+        }
+
+        .contact-box:hover {
+            box-shadow: 0 0 8px white, 0 0 16px white;
+            text-shadow: 0 0 8px white, 0 0 16px white;
+        }
+    </style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Acumin+Variable+Concept:wght@400;700&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #e5e5e5;
+            display: flex;
+            flex-direction: column;
+            height: 100vh; /* Two full pages */
+            font-family: 'Acumin Variable Concept', sans-serif;
+        }
+        .spacer {
+    height: 100vh; /* Adjust height as needed */
+    width: 100%;
+}
+
+        .page {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            height: 80vh; /* Leaves space at top and bottom */
+            width: 90vw; /* Leaves space on left and right */
+            font-size: 140px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px; /* Set gap between elements to 20px */
+            opacity: 0.5;
+            transform: rotate(-5deg);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .line img {
+            height: 148px; /* Increased by another 30% */
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .line .text {
+            height: 148px; /* Ensure text aligns with the center of the arrows */
+            display: flex;
+            align-items: center;
+        }
+        .release {
+            border-radius: 10px;
+            height: 263px; /* Increased by 50% */
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .visible {
+            opacity: 1 !important;
+            transform: rotate(0deg) !important;
+        }
+        .visible img, .visible .release {
+            opacity: 1 !important;
+            transform: translateX(0) !important;
+        }
+    </style>
+</head>
+<body>                                                             <!-- BODY--> 
+    
+
+    <!-- Header -->
+    <div class="header" id="header">
+        <img src="logo-popin.png" alt="Logo" class="logo" id="logo">
+        <div class="contact-container" id="contactHeader">
+            <div class="contact-box">Contact Us</div>
+            <div class="contact-box"> +11 98765 43210</div>
+            <div class="contact-box">We're Recruiting!</div>
+        </div>
+    </div>
+
+    <!-- Page 1 -->
+    <div id="page1" class="page">
+        <img src="hello.png" class="hello-image" alt="Hello Text" style="display: none; clip-path: circle(400px at 2003px 526px);">
+        <video class="video-container" src="loop logo.mp4" autoplay loop muted></video>
+        <video class="video-container glow" src="loop logo glow2.mp4" autoplay loop muted style="display: none; clip-path: circle(400px at 2003px 526px);"></video>
+        <div class="cursor-mask" style="left: 2003px; top: 526px;"></div>
+    </div>
+
+    <!-- Page 2 -->
+    
+    <div id="page2" class="page">
+        <video class="showreel-video" src="showreel-cover.mp4" autoplay loop muted></video>
+    </div>
+    
+    <div id="page2" class="page">
+        <video class="showreel-video" src="showreel-cover.mp4" autoplay loop muted></video>
+    </div>
+
+    <!-- Page 3 -->
+    <div id="page3" class="page">
+        <div class="container">
+            <img class="text-image" src="page2text.png" alt="Text">
+            <div class="hover-area blue-box" onmouseover="showImage('blue')" onmouseout="hideImage('blue')"></div>
+            <div class="hover-area green-box" onmouseover="showImage('green')" onmouseout="hideImage('green')"></div>
+            <div class="hover-area red-box" onmouseover="showImage('red')" onmouseout="hideImage('red')"></div>
+            <div class="hover-image blue"></div>
+            <div class="hover-image green"></div>
+            <div class="hover-image red"></div>
+        </div>
+    </div>
+
+    <img src="blank.png">
+
+
+     <!-- Page 4 -->
+    
+     <div id="page4">
+        <iframe src="text blur2.html" width="100%" height="1900px" style="border:none;"></iframe>
+        
+    </div>
+    <!-- FLOWCHART BELOW -->
+    
+    
+
+
+    <script>
+        const cursorMask = document.querySelector('.cursor-mask');
+        const glowVideo = document.querySelector('.video-container.glow');
+        const helloText = document.querySelector('.hello-image');
+        const mainVideo = document.querySelector('.video-container:not(.glow)');
+        const header = document.getElementById("header");
+
+        glowVideo.addEventListener('loadedmetadata', () => {
+            glowVideo.currentTime = mainVideo.currentTime;
+        });
+
+        mainVideo.addEventListener('timeupdate', () => {
+            glowVideo.currentTime = mainVideo.currentTime;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            cursorMask.style.left = `${e.clientX}px`;
+            cursorMask.style.top = `${e.clientY}px`;
+            glowVideo.style.display = "block";
+            helloText.style.display = "block";
+            glowVideo.style.clipPath = `circle(400px at ${e.clientX}px ${e.clientY}px)`;
+            helloText.style.clipPath = `circle(400px at ${e.clientX}px ${e.clientY}px)`;
+        });
+
+        document.addEventListener('mouseleave', () => {
+            glowVideo.style.display = "none";
+            helloText.style.display = "none";
+        });
+
+        window.addEventListener("scroll", function() {
+            const page2 = document.querySelector("#page2");
+            const page2Position = page2.offsetTop;
+
+            if (window.scrollY >= page2Position - 50) {
+                header.classList.add("invert");
+            } else {
+                header.classList.remove("invert");
+            }
+        });
+
+        function showImage(color) {
+            const image = document.querySelector(`.hover-image.${color}`);
+            image.style.visibility = 'visible';
+            image.style.opacity = '1';
+        }
+
+        function hideImage(color) {
+            const image = document.querySelector(`.hover-image.${color}`);
+            image.style.opacity = '0';
+            setTimeout(() => {
+                if (image.style.opacity === '0') {
+                    image.style.visibility = 'hidden';
+                }
+            }, 500);
+        }
+    </script>
+    <div class="page"></div> <!-- Blank first page -->
+    <div class="page">
+        <div class="content">
+            <div class="line" id="line1">
+                <span class="text">Meet</span>
+                <img src="arrow-right.png" alt=">" >
+                <span class="text">Listen</span>
+                <img src="arrow-right.png" alt=">" >
+                <span class="text">Question</span>
+                <img src="arrow-right.png" alt=">" >
+                <span class="text">Think</span>
+            </div>
+            <div class="line" id="line2">
+                <img src="arrow-right.png" alt=">" >
+                <span class="text">Find</span>
+                <img src="arrow-right.png" alt=">" >
+                <span class="text">Ideate</span>
+                <img src="arrow-right.png" alt=">" >
+                <span class="text">Suggest</span>
+            </div>
+            <div class="line" id="line3">
+                <img src="arrow-right.png" alt=">" >
+                <span class="text">Go Live</span>
+                <img src="arrow-right.png" alt=">" >
+                <span class="text">Follow</span>
+                <img src="arrow-right.png" alt=">" >
+                <img src="release.gif" alt="Release" class="release">
+            </div>
+            <div class="line" id="line4">
+                <img src="arrow-right.png" alt=">" >
+                <span class="text">Support</span>
+                <img src="arrow-right.png" alt=">" >
+                <span class="text">Nurture</span>
+                <img src="arrow-right.png" alt=">" >
+                <span class="text">Evolve</span>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("scroll", function() {
+            let lines = document.querySelectorAll(".line");
+            let windowHeight = window.innerHeight;
+            let scrollY = window.scrollY;
+            
+            lines.forEach((line, index) => {
+                let rect = line.getBoundingClientRect();
+                let visibilityFactor = (windowHeight - rect.top) / windowHeight;
+                
+                if (visibilityFactor > 0.3) {
+                    line.classList.add("visible");
+                } else {
+                    line.classList.remove("visible");
+                }
+            });
+        });
+    </script>
+
+<div id="page2" class="page">
+    <video class="showreel-video" src="showreel-cover.mp4" autoplay loop muted></video>
+</div>
+
+</body>
+</html>
+

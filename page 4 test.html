@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blur Hover Effect</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
+        body {
+            background-color: #e5e5e5;
+            color: #171717;
+            font-family: 'Playfair Display', serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('blurtextbg.png') center/cover no-repeat;
+            opacity: 0.5;
+            z-index: 0;
+        }
+
+        .container {
+            width: 70%;
+            text-align: right;
+            position: relative;
+            z-index: 1;
+        }
+
+        .word {
+            font-size: 120px;
+            font-weight: bold;
+            filter: blur(10px);
+            transition: filter 0.5s ease-in-out;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .word:hover, .word.in-view {
+            filter: blur(0px);
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 50px;
+            width: 85%;
+            max-width: 1000px;
+            border-radius: 20px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+            display: none;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+
+        .popup.show {
+            opacity: 1;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .close-btn:hover {
+            transform: rotate(360deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="background-image"></div>
+    <div class="container">
+        <div class="word" onclick="openPopup('Data Strategy', 'Data strategy involves structuring, managing, and utilizing data effectively to drive business insights, improve decision-making, and create a competitive advantage.')">Data Strategy</div>
+        <div class="word" onclick="openPopup('Data', 'Data refers to raw facts and figures that are collected, processed, and analyzed to extract meaningful insights and support strategic decision-making.')">Data</div>
+        <div class="word" onclick="openPopup('E-Commerce', 'E-commerce encompasses the buying and selling of goods and services online, leveraging digital platforms, payment gateways, and logistics solutions.')">E-Commerce</div>
+        <div class="word" onclick="openPopup('Extranet / Intranet', 'An intranet is a private network used by organizations for internal communications, while an extranet extends controlled access to external stakeholders.')">Extranet / Intranet</div>
+        <div class="word" onclick="openPopup('Web Development', 'Web development involves building and maintaining websites, including frontend and backend development, user experience, and responsive design.')">Web Development</div>
+        <div class="word" onclick="openPopup('Creative Design', 'Creative design is the art of crafting visually compelling content that enhances branding, marketing, and user engagement across digital platforms.')">Creative Design</div>
+        <div class="word" onclick="openPopup('User Experience', 'User experience (UX) focuses on designing digital products and interfaces that provide seamless, intuitive, and engaging interactions for users.')">User Experience</div>
+    </div>
+    
+    <div class="popup" id="popup">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-circle-fill close-btn" viewBox="0 0 16 16" onclick="closePopup()">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
+        </svg>
+        <h2 id="popup-text"></h2>
+        <p id="popup-description"></p>
+    </div>
+
+    <script>
+        function openPopup(word, description) {
+            document.getElementById("popup-text").innerText = word;
+            document.getElementById("popup-description").innerText = description;
+            let popup = document.getElementById("popup");
+            popup.style.display = "block";
+            setTimeout(() => popup.classList.add("show"), 10);
+        }
+
+        function closePopup() {
+            let popup = document.getElementById("popup");
+            popup.classList.remove("show");
+            setTimeout(() => popup.style.display = "none", 400);
+        }
+    </script>
+</body>
+</html>

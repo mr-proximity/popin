@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glowing PNG Hover with Popup</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+        .container-fluid {
+            padding: 20px;
+        }
+        .img-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            cursor: pointer;
+        }
+        .glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            filter: blur(12px);
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            border-radius: 15px;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .img-container:hover .glow {
+            opacity: 65%;
+        }
+        .main {
+            display: block;
+            width: 100%;
+            height: auto;
+            position: relative;
+            border-radius: 15px;
+            z-index: 1;
+        }
+
+        /* Default: All images are in full color */
+.img-container .main {
+    transition: filter 0.3s ease-in-out;
+}
+
+/* When hovering on any .img-container, turn ALL images grayscale */
+.container-fluid:hover .main {
+    filter: grayscale(100%);
+    opacity: 45%;
+}
+
+/* The hovered image stays in full color */
+.img-container:hover .main {
+    filter: grayscale(0%);
+    opacity: 100%;
+}
+
+        
+
+        
+        /* Glassmorphism Popup */
+        .popup {
+        
+            position: fixed;min-width: 1000px;
+            background: rgba(255, 255, 255, 0.35); /* White base with 35% opacity */
+            min-height: 400px;
+            border: 0.4px solid white;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 60%;
+            max-width: 600px;
+            padding: 30px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+            
+            color: white; /* Ensures visibility */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Soft shadow for contrast */
+    font-weight: 500; /* Slightly bold for better readability */
+            font-family: "Poppins", sans-serif;
+            
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+            z-index: 2;
+        }
+        .popup.show {
+            display: block;
+            opacity: 2;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 22px;
+    font-weight: bold;
+    z-index: 2;
+    margin-right: 0px; /* Adds spacing between title and description */
+}
+
+        
+        .popup-description { color: white; /* Ensures visibility */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Soft shadow for contrast */
+    font-weight: 500; /* Slightly bold for better readability */
+            font-size: 16px;
+            opacity: 0.8;
+            text-align: right;
+            z-index: 2;
+          
+        }
+        .popup-close {
+            cursor: pointer;
+            color: rgba(0, 0, 0, 0);
+            font-size: 20px;
+            transition: 0.3s;
+            z-index: 2;
+        }
+        .popup-close:hover {
+            color: rgb(0, 0, 0);
+            z-index: 2;
+        }
+        .popup-icon {
+            width: 22px;
+            height: 22px;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    
+
+    <div class="container-fluid">
+        <!-- First Row -->
+        <div class="row g-4">
+            <div class="col-md-4 col-sm-6 img-container" onclick="showPopup('Celestial Mirage', 'A surreal blend of cosmic colors, inspired by the endless wonders of the galaxy.A surreal blend of cosmic colors, inspired by the endless wonders of the galaxy.A surreal blend of cosmic colors, inspired by the endless wonders of the galaxy.')">
+                <img src="art1.png" alt="Art 1" class="main">
+                <img src="art1.png" alt="Art 1 Glow" class="glow">
+            </div>
+            <div class="col-md-4 col-sm-6 img-container" onclick="showPopup('Ethereal Echoes', 'A dreamlike representation of fading memories, painted in soft hues of nostalgia.A dreamlike representation of fading memories, painted in soft hues of nostalgia.A dreamlike representation of fading memories, painted in soft hues of nostalgia.A dreamlike representation of fading memories, painted in soft hues of nostalgia.')">
+                <img src="art2.png" alt="Art 2" class="main">
+                <img src="art2.png" alt="Art 2 Glow" class="glow">
+            </div>
+            <div class="col-md-4 col-sm-6 img-container" onclick="showPopup('Silent Symphony', 'A visual orchestra of colors harmonizing in silent rhythm, evoking deep emotions.')">
+                <img src="art3.png" alt="Art 3" class="main">
+                <img src="art3.png" alt="Art 3 Glow" class="glow">
+            </div>
+        </div>
+
+        <!-- Second Row -->
+        <div class="row g-4">
+            <div class="col-md-4 col-sm-6 img-container" onclick="showPopup('Aurora’s Embrace', 'Capturing the dance of northern lights in an artistic glow of ethereal energy.')">
+                <img src="art4.png" alt="Art 4" class="main">
+                <img src="art4.png" alt="Art 4 Glow" class="glow">
+            </div>
+            <div class="col-md-4 col-sm-6 img-container" onclick="showPopup('Infinite Reverie', 'A journey through infinite landscapes of the mind, a fusion of reality and fantasy.')">
+                <img src="art5.png" alt="Art 5" class="main">
+                <img src="art5.png" alt="Art 5 Glow" class="glow">
+            </div>
+            <div class="col-md-4 col-sm-6 img-container" onclick="showPopup('Timeless Mirage', 'A fleeting vision frozen in time, suspended between dreams and reality.')">
+                <img src="art6.png" alt="Art 6" class="main">
+                <img src="art6.png" alt="Art 6 Glow" class="glow">
+            </div>
+        </div>
+
+        <!-- Third Row -->
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4 col-sm-6 img-container" onclick="showPopup('Shattered Illusions', 'Fragments of imagination colliding into an abstract masterpiece.')">
+                <img src="art7.png" alt="Art 7" class="main">
+                <img src="art7.png" alt="Art 7 Glow" class="glow">
+            </div>
+            <div class="col-md-4 col-sm-6 img-container" onclick="showPopup('Eclipse’s Whisper', 'A cosmic ballet of light and shadow, captured in a single mesmerizing moment.')">
+                <img src="art8.png" alt="Art 8" class="main">
+                <img src="art8.png" alt="Art 8 Glow" class="glow">
+            </div>
+        </div>
+    </div>
+
+    <!-- Glassmorphism Popup -->
+    <div id="popup" class="popup">
+        <div class="popup-header">
+            <span id="popup-title"></span>
+            <span class="popup-close" onclick="hidePopup()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" class="popup-icon" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                </svg>
+            </span>
+        </div>
+        <p id="popup-description" class="popup-description"></p>
+    </div>
+
+    <script>
+        function showPopup(title, description) {
+            document.getElementById("popup-title").innerText = title;
+            document.getElementById("popup-description").innerText = description;
+            document.getElementById("popup").classList.add("show");
+        }
+        function hidePopup() {
+            document.getElementById("popup").classList.remove("show");
+        }
+    </script>
+
+
+</body>
+</html>

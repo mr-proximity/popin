@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blur to Clear Text with Popup</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
+        body {                                              /* BODY*/
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            
+            min-height: 100vh;
+            max-height: 1080p;
+            max-width: 1920px;
+            background-color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .left-content {
+            position: absolute;
+            top: 285px;
+            left: 75px;
+            text-align: left;
+        }
+
+        .left-content .dot {
+            height: 6px;
+            width: 6px;
+            background-color: black;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        .left-content .expertise,
+        .left-content .skills {
+            font-size: 1.875vw; /* Increased by 15% */
+            color: black;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        .container {
+            text-align: right;
+            margin-right: 5vw;
+            margin-left: auto;
+        }
+
+        .word {
+            font-size: 4.875vw; /* Increased by 15% */
+            margin: 3vh 0;
+            color: black;
+            filter: blur(18.25px); /* Increased blur by 25% */
+            transition: filter 0.4s ease-in-out;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        .word:hover {
+            filter: blur(0px);
+        }
+
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .popup-content {
+            background: white;
+            color: black;
+            padding: 2rem;
+            width: 50%;
+            max-width: 600px;
+            border-radius: 10px;
+            position: relative;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        }                                                          /* HEAD*/
+    </style> 
+</head>                                                        
+<body>
+    <div class="left-content">
+        <span class=""></span><span class="expertise">•Our expertise</span>
+        <div class="skills">Skills to serve your performance</div>
+    </div>
+
+    <div class="container">
+        <div class="word" onclick="openPopup('Data Strategy', 'A structured approach to managing and leveraging data for business success.')">Data Strategy</div>
+        <div class="word" onclick="openPopup('Data', 'Raw facts and figures that can be processed into meaningful insights.')">Data</div>
+        <div class="word" onclick="openPopup('E-Commerce', 'Online commercial transactions through websites and applications.')">E-Commerce</div>
+        <div class="word" onclick="openPopup('Extranet / Intranet', 'Private networks used for internal or partner collaboration.')">Extranet / Intranet</div>
+        <div class="word" onclick="openPopup('Web Development', 'Building and maintaining websites and web applications.')">Web Development</div>
+        <div class="word" onclick="openPopup('Creative Design', 'Innovative visual and functional design for digital and print media.')">Creative Design</div>
+        <div class="word" onclick="openPopup('User Experience', 'Enhancing user satisfaction by improving usability and accessibility.')">User Experience</div>
+    </div>
+
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <h2 id="popup-title"></h2>
+            <p id="popup-description"></p>
+        </div>
+    </div>
+
+    <script>
+        function openPopup(title, description) {
+            document.getElementById('popup-title').innerText = title;
+            document.getElementById('popup-description').innerText = description;
+            let popup = document.getElementById('popup');
+            popup.style.display = 'flex';
+            setTimeout(() => { popup.style.opacity = '1'; }, 10);
+        }
+
+        function closePopup() {
+            let popup = document.getElementById('popup');
+            popup.style.opacity = '0';
+            setTimeout(() => { popup.style.display = 'none'; }, 500);
+        }
+    </script>
+</body>
+</html>

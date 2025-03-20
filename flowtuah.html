@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two Page Layout</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Acumin+Variable+Concept:wght@400;700&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #e5e5e5;
+            display: flex;
+            flex-direction: column;
+            height: 200vh; /* Two full pages */
+            font-family: 'Acumin Variable Concept', sans-serif;
+        }
+        .page {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            height: 80vh; /* Leaves space at top and bottom */
+            width: 90vw; /* Leaves space on left and right */
+            font-size: 140px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px; /* Set gap between elements to 20px */
+            opacity: 0.5;
+            transform: rotate(-5deg);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            position: relative;
+        }
+        .line .text, .line img, .line .release {
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .line .text {
+            height: 148px; /* Ensure text aligns with the center of the arrows */
+            display: flex;
+            align-items: center;
+        }
+        .release {
+            border-radius: 10px;
+            height: 263px; /* Increased by 50% */
+        }
+        .visible {
+            opacity: 1 !important;
+            transform: translateX(0) !important;
+        }
+        .line .text.visible, .line img.visible, .line .release.visible {
+            opacity: 1 !important;
+            transform: translateX(0) !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="page"></div> <!-- Blank first page -->
+    <div class="page">
+        <div class="content">
+            <div class="line" id="line1">
+                <span class="text">Meet</span>
+                <img src="arrow-right.png" alt=">" >
+                <span class="text">Listen</span>
+                <img src="arrow-right.png" alt=">" >
+                <span class="text">Question</span>
+                <img src="arrow-right.png" alt=">" >
+                <span class="text">Think</span>
+            </div>
+            <div class="line" id="line2">
+                <img src="arrow-right.png" alt=">" >
+                <span class="text">Find</span>
+                <img src="arrow-right.png" alt=">" >
+                <span class="text">Ideate</span>
+                <img src="arrow-right.png" alt=">" >
+                <span class="text">Suggest</span>
+            </div>
+            <div class="line" id="line3">
+                <img src="arrow-right.png" alt=">" >
+                <span class="text">Go Live</span>
+                <img src="arrow-right.png" alt=">" >
+                <span class="text">Follow</span>
+                <img src="arrow-right.png" alt=">" >
+                <img src="release.gif" alt="Release" class="release">
+            </div>
+            <div class="line" id="line4">
+                <img src="arrow-right.png" alt=">" >
+                <span class="text">Support</span>
+                <img src="arrow-right.png" alt=">" >
+                <span class="text">Nurture</span>
+                <img src="arrow-right.png" alt=">" >
+                <span class="text">Evolve</span>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("scroll", function() {
+            let lines = document.querySelectorAll(".line");
+            let windowHeight = window.innerHeight;
+            
+            lines.forEach((line, index) => {
+                let rect = line.getBoundingClientRect();
+                let visibilityFactor = (windowHeight - rect.top) / windowHeight;
+                
+                if (visibilityFactor > 0.3) {
+                    let children = line.children;
+                    Array.from(children).forEach((child, idx) => {
+                        // Apply a delay based on the index of the child
+                        setTimeout(() => {
+                            child.classList.add("visible");
+                        }, idx * 150); // 150ms delay for each element
+                    });
+                } else {
+                    let children = line.children;
+                    Array.from(children).forEach(child => {
+                        child.classList.remove("visible");
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

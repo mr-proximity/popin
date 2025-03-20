@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Logo</title>
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            background: #000000;
+        }
+        .page {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        #page1 { 
+            background: #000000; 
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            position: relative;
+        }
+        #page2 { 
+            background: #e5e5e5; 
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .video-container {
+            position: absolute;
+            width: 1920px;
+            height: 1080px;
+        }
+        .hello-image {
+            position: absolute;
+            width: 1920px;
+            height: 1080px;
+            z-index: 1;
+            display: none;
+        }
+        .cursor-mask {
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 10%, rgba(255,255,255,0) 40%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            filter: blur(20px);
+            mix-blend-mode: screen;
+            /* Grain effect */
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABYElEQVRIDbXUsUtCURjH8b9LhSYGFgskikWxMoWeQzGZGUQyNhExmJpJiM4mJgYxiBhbC6FkwmgZRItnWSPyP1bkXzXeu+33nvf9z3nnnLsrmzd7CVzBgUh0AhPAOYwhfGHY7jBH+Is1rEWKgIfxHL8VG8gEV03sgAZT8JjoDduI0bwBnsFM1z5AAl+OwPaoLR/E8AOwAvagM0DmACvAY2QcXwHJfdoBD8zgOwKEx0Y14DnvACPSIeEkt2WnCz6jYwhfWJw5k44FwAVzg8jRljbUKP4ykC3kM6ArsuARXiwCi+zt9mbP3CDI4q5YxFLi/hGBL+l+O8sh28EHLk60S4N72JaOIGfUbdCGwgeXMhqsMd4EVaIzToB3QrgS/sA91AN6h0LZKwbc6r5AvrCnME6fABrYtMCeAln8AB+JBHiDhH4X2gAUYBd8E/iB3kpJbQC7RF2n+INkTZSnD0uUAAAAASUVORK5CYII=');
+            background-size: cover;
+            opacity: 0.8;
+        }
+
+        /* HEADER STYLES */
+        .header {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+            transition: filter 0.5s ease-in-out;
+            /* Invert dynamically based on background */
+            mix-blend-mode: difference;
+            color: white;
+        }
+
+        /* Logo */
+        .logo {
+            width: 75px; /* Adjust size */
+            height: auto;
+            transition: filter 0.5s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        /* Glow effect on logo hover */
+        .logo:hover {
+            filter: drop-shadow(0 0 10px white);
+        }
+
+        /* Contact Box Container (Fixed at Top Right) */
+        .contact-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: filter 0.5s ease-in-out;
+        }
+
+        /* Contact Boxes */
+        .contact-box {
+            border: 1.5px solid white;
+            color: white;
+            width: 160px;
+            height: 40px;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 300;
+            text-align: center;
+            transition: box-shadow 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+        }
+
+        /* Glow effect on hover */
+        .contact-box:hover {
+            box-shadow: 0 0 8px white, 0 0 16px white;
+            text-shadow: 0 0 8px white, 0 0 16px white;
+        }
+
+       
+
+    </style>
+</head>
+<body>
+
+    <!-- Header (Logo + Contact Info) -->
+    <div class="header" id="header">
+        <img src="logo-popin.png" alt="Logo" class="logo" id="logo">
+        <div class="contact-container" id="contactHeader">
+            <div class="contact-box">Contact Us</div>
+            <div class="contact-box"> +11 98765 43210</div>
+            <div class="contact-box">We're Recruiting!</div>
+        </div>
+    </div>
+
+    <div id="page1" class="page">
+        <img src="hello.png" class="hello-image" alt="Hello Text" style="display: none; clip-path: circle(400px at 2003px 526px);">
+        <video class="video-container" src="loop logo.mp4" autoplay loop muted></video>
+        <video class="video-container glow" src="loop logo glow2.mp4" autoplay loop muted style="display: none; clip-path: circle(400px at 2003px 526px);"></video>
+        <div class="cursor-mask" style="left: 2003px; top: 526px;"></div>
+    </div>
+
+    <div id="page2" class="page">
+    </div>
+
+    <script>
+        const cursorMask = document.querySelector('.cursor-mask');
+        const glowVideo = document.querySelector('.video-container.glow');
+        const helloText = document.querySelector('.hello-image');
+        const mainVideo = document.querySelector('.video-container:not(.glow)');
+        const header = document.getElementById("header");
+
+        // Sync glow video with main video
+        glowVideo.addEventListener('loadedmetadata', () => {
+            glowVideo.currentTime = mainVideo.currentTime;
+        });
+
+        mainVideo.addEventListener('timeupdate', () => {
+            glowVideo.currentTime = mainVideo.currentTime;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            cursorMask.style.left = `${e.clientX}px`;
+            cursorMask.style.top = `${e.clientY}px`;
+            glowVideo.style.display = "block";
+            helloText.style.display = "block";
+            glowVideo.style.clipPath = `circle(400px at ${e.clientX}px ${e.clientY}px)`;
+            helloText.style.clipPath = `circle(400px at ${e.clientX}px ${e.clientY}px)`;
+        });
+
+        document.addEventListener('mouseleave', () => {
+            glowVideo.style.display = "none";
+            helloText.style.display = "none";
+        });
+
+        // Invert header colors on scroll
+        window.addEventListener("scroll", function() {
+            const page2 = document.querySelector("#page2");
+            const page2Position = page2.offsetTop;
+
+            if (window.scrollY >= page2Position - 50) {
+                header.classList.add("invert");
+            } else {
+                header.classList.remove("invert");
+            }
+        });
+    </script>
+
+</body>
+</html>

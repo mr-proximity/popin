@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Image Hover</title>
+    <style>
+        body {
+            background-color: #e5e5e5;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .container {
+            position: relative;
+            width: 1920px;
+            height: 1080px;
+        }
+        /* Main Text Image */
+        .text-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1920px;
+            height: 1080px;
+        }
+        /* Hover Images (initially hidden) */
+        .hover-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1920px;
+            height: 1080px;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none; /* Ensures images don’t block hover detection */
+        }
+        .hover-image.blue {
+            background-image: url('blue.png');
+        }
+        .hover-image.green {
+            background-image: url('green.png');
+        }
+        .hover-image.red {
+            background-image: url('red.png');
+        }
+        /* Hover Areas */
+        .hover-area {
+            position: absolute;
+            cursor: pointer;
+        }
+        /* Adjusted Box Sizes */
+        .blue-box {
+            top: 500px;
+            left: 1020px;
+            width: 847px;
+            height: 144px;
+        }
+        .green-box {
+            top: 605px;
+            left: 41px;
+            width: 964px;
+            height: 116px;
+        }
+        .red-box {
+            top: 831px;
+            left: 985px;
+            width: 556px;
+            height: 121px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Main Text Image -->
+        <img class="text-image" src="page2text.png" alt="Text">
+        
+        <!-- Hoverable Areas -->
+        <div class="hover-area blue-box" onmouseover="showImage('blue')" onmouseout="hideImage('blue')"></div>
+        <div class="hover-area green-box" onmouseover="showImage('green')" onmouseout="hideImage('green')"></div>
+        <div class="hover-area red-box" onmouseover="showImage('red')" onmouseout="hideImage('red')"></div>
+        
+        <!-- Hover Images -->
+        <div class="hover-image blue"></div>
+        <div class="hover-image green"></div>
+        <div class="hover-image red"></div>
+    </div>
+
+    <script>
+        function showImage(color) {
+            const image = document.querySelector(`.hover-image.${color}`);
+            image.style.visibility = 'visible';
+            image.style.opacity = '1';
+        }
+
+        function hideImage(color) {
+            const image = document.querySelector(`.hover-image.${color}`);
+            image.style.opacity = '0';
+            setTimeout(() => {
+                if (image.style.opacity === '0') {
+                    image.style.visibility = 'hidden';
+                }
+            }, 500); // Match transition duration
+        }
+    </script>
+</body>
+</html>
+

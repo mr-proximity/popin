@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrolling Contact Header</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
+        body {
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s ease-in-out;
+        }
+
+        /* Page 1 (Black background) */
+        .page-1 {
+            background-color: black;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        /* Page 2 (White background) */
+        .page-2 {
+            background-color: #e5e5e5;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: black;
+        }
+
+        /* Header (Contains Logo & Contact Boxes) */
+        .header {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+            transition: filter 0.5s ease-in-out;
+        }
+
+        /* Logo */
+        .logo {
+            width: 60px; /* Adjust size */
+            height: auto;
+            transition: filter 0.5s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        /* Glow effect on logo hover */
+        .logo:hover {
+            filter: drop-shadow(0 0 10px white);
+        }
+
+        /* Contact Box Container (Fixed at Top Right) */
+        .contact-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: filter 0.5s ease-in-out;
+        }
+
+        /* Contact Boxes */
+        .contact-box {
+            border: 1.5px solid white;
+            color: white;
+            width: 160px;
+            height: 40px;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 300;
+            text-align: center;
+            transition: box-shadow 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+        }
+
+        /* Glow effect on hover */
+        .contact-box:hover {
+            box-shadow: 0 0 8px white, 0 0 16px white;
+            text-shadow: 0 0 8px white, 0 0 16px white;
+        }
+
+        /* Invert effect for Page 2 */
+        .invert {
+            filter: invert(1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header (Logo + Contact Info) -->
+    <div class="header" id="header">
+        <img src="logo-popin.png" alt="Logo" class="logo" id="logo">
+        <div class="contact-container" id="contactHeader">
+            <div class="contact-box">Contact Us</div>
+            <div class="contact-box"> (+11) 98765 43210</div>
+            <div class="contact-box">We're Recruiting!</div>
+        </div>
+    </div>
+
+    <!-- Page 1 -->
+    <div class="page-1">
+        <h1>Welcome to Page 1</h1>
+    </div>
+
+    <!-- Page 2 -->
+    <div class="page-2">
+        <h1>Welcome to Page 2</h1>
+    </div>
+
+    <script>
+        window.addEventListener("scroll", function() {
+            const header = document.getElementById("header");
+            const page2 = document.querySelector(".page-2");
+            const page2Position = page2.offsetTop;
+
+            if (window.scrollY >= page2Position - 50) {
+                header.classList.add("invert");
+            } else {
+                header.classList.remove("invert");
+            }
+        });
+    </script>
+
+</body>
+</html>
